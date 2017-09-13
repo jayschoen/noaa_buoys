@@ -1,7 +1,26 @@
 function get_buoy_data() {
 
-    let buoy_data = Rx.Observable.fromPromise(
-        fetch("http://127.0.0.1:5000/retrieve-current-readings/UP", {
+    let selector = document.getElementById("station_selector");
+    console.log('#');
+    console.log(selector);
+
+    let station_selection = Rx.Observable.fromEvent(selector, "change")
+    .map(event => event.target.value)
+    .startWith("UP")
+    .flatMap(station_id => ajax_get_buoy_data(station_id));
+
+    station_selection.subscribe(
+        response => add_data_to_dom(response),
+        error => console.log(error),
+        () => console.log('completed')
+    );
+    
+}
+
+function ajax_get_buoy_data(station_id) {
+
+    return Rx.Observable.fromPromise(
+        fetch("http://127.0.0.1:5000/retrieve-current-readings/" + station_id, {
             method: 'GET',
         })
     )
@@ -15,20 +34,19 @@ function get_buoy_data() {
             return response;
         }
     })
-    .flatMap(response => response.json())
-    .subscribe(
-        response => add_data_to_dom(response),//console.log(response),
-        error => console.log(error),
-        () => console.log('completed')
-    );
+    .flatMap(response => response.json());
+
 }
 
 function add_data_to_dom(data) {
     console.log(data);
     values_div = document.getElementById("values");
+    values_div.innerHTML = "";
     for(let key in data.values) {
         values_div.innerHTML += "<div>" + key + " "  + data.values[key] + " " + data.units[key]  + "</div></br>";
     }
 }
 
-get_buoy_data();
+document.addEventListener("DOMContentLoaded", function(event) { 
+    get_buoy_data();
+});
