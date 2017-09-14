@@ -1,24 +1,38 @@
 <!doctype html>
 
 <script src="https://unpkg.com/rxjs@5.4.3/bundles/Rx.min.js"></script>
-
-<div id="values"></div>
+<script src="/static/js/retrieve_buoy_data.js"></script>
 
 <div>
-  <select id="station_selector">
-    <option value="AN">AN</option>
-    <option value="FL">FL</option>
-    <option value="GR">GR</option>
-    <option value="J">J</option>
-    <option value="N">N</option>
-    <option value="PL">PL</option>
-    <option value="RC">RC</option>
-    <option value="S">S</option>
-    <option value="SN">SN</option>
-    <option value="SR">SR</option>
-    <option selected="selected" value="UP">UP</option>
-  </select>
+  <div style="float:left; margin-right:5px;">
+    <select id="station_selector">
+      <option value="AN">Annapolis</option>
+      <option value="FL">First Landing</option>
+      <option value="GR">Gooses Reef</option>
+      <option value="J">Jamestown</option>
+      <option value="N">Norfolk</option>
+      <option value="PL">Point Lookout</option>
+      <option value="RC">Rice Rivers Center</option>
+      <option value="S">Susquehanna</option>
+      <option value="SN">Patapsco</option>
+      <option value="SR">Stingray Point</option>
+      <option selected="selected" value="UP">Upper Potomac</option>
+    </select>
+  </div>
+
+  <div style="float:left;">
+    <select id="unit_selector" onchange="toggle_units(this);">
+      <option value="metric">metric</option>
+      <option value="imperial" selected="selected">imperial</option>
+    </select>
+  </div>
 </div>
 
-<script src="/static/js/retrieve_buoy_data.js"></script>
+<div style="clear:both;"></div>
+
+<div id="values" style="margin-top:10px;">
+  <div id="default"></div>
+  <div id="metric" style="display:none;"></div>
+  <div id="imperial" style="display:unset;"></div>
+</div>
 
