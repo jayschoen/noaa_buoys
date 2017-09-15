@@ -1,8 +1,43 @@
+function get_station_status() {
+    
+    let station_status = Rx.Observable.fromPromise(
+        fetch(
+            "http://127.0.0.1:5000/get-station-status/UP",
+            {
+                method: 'GET',
+            }
+        )
+    )
+    .flatMap(response => response.json())
+    .subscribe(
+        response => update_station_status_dom(response),
+        error => console.log(error),
+        () => console.log('completed')   
+    );
+
+}
+
+function update_station_status_dom(status_obj) {
+    
+    let status_val = "";
+    if (status_obj.result === 0) {
+        status_val = "Online";
+        status_color = "#42f495";
+    }
+    else {
+        status_val = "Offline";
+        status_color = "#f4425c";
+    }
+
+    let selector = document.getElementById("station_status");
+
+    selector.innerHTML = "<div style='background-color:" + status_color + ";'>" + status_val + "</div>"; 
+
+}
+
 function get_buoy_data() {
 
     let selector = document.getElementById("station_selector");
-    console.log('#');
-    console.log(selector);
 
     let station_selection = Rx.Observable.fromEvent(selector, "change")
     .map(event => event.target.value)
@@ -20,9 +55,12 @@ function get_buoy_data() {
 function ajax_get_buoy_data(station_id) {
 
     return Rx.Observable.fromPromise(
-        fetch("http://127.0.0.1:5000/retrieve-current-readings/" + station_id, {
-            method: 'GET',
-        })
+        fetch(
+            "http://127.0.0.1:5000/retrieve-current-readings/" + station_id,
+            {
+                method: 'GET',
+            }
+        )
     )
     .map(response => {
         if( response.status >= 400 && response.status < 600) {
@@ -39,7 +77,6 @@ function ajax_get_buoy_data(station_id) {
 }
 
 function add_data_to_dom(data) {
-    console.log(data);
     value_divs = {
         "default_div": document.getElementById("default"),
         "metric_div": document.getElementById("metric"),
@@ -76,6 +113,9 @@ function toggle_units(selectObject) {
     }
 }
 
+
+
 document.addEventListener("DOMContentLoaded", function(event) { 
     get_buoy_data();
+    get_station_status();
 });

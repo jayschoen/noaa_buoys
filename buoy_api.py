@@ -12,6 +12,21 @@ NOAA_API_KEY = app.config['NOAA_API_KEY']
 def index():
     return render_template('index.html')
 
+@app.route('/get-station-status/<station_id>')
+def getStationStatus(station_id):
+
+    if _check_station_id(station_id):
+
+        noaa_method = "GetStationStatus"
+
+        response = buoy_jsonrpc.request_noaa_data(NOAA_URL, NOAA_API_KEY, station_id, noaa_method)
+
+        return jsonify(response)
+
+    else:
+        return "Invalid station ID."
+
+
 @app.route('/retrieve-current-readings/<station_id>')
 def retrieveCurrentReadings(station_id):
 

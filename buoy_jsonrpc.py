@@ -18,7 +18,6 @@ def request_noaa_data(url, api_key, station_id, method):
         url,
         data=json.dumps(payload),
         headers=headers
-    )#.json()
+    )
     
-    print response.json()
     return response.json()
