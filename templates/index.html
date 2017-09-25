@@ -2,7 +2,9 @@
 
 <script src="https://unpkg.com/rxjs@5.4.3/bundles/Rx.min.js"></script>
 <script src="/static/js/retrieve_buoy_data.js"></script>
-    
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+
 <div id="station_status" style="float:left; margin-right:5px;">
 
 </div>
@@ -34,9 +36,20 @@
 
 <div style="clear:both;"></div>
 
-<div id="values" style="margin-top:10px;">
-  <div id="default"></div>
-  <div id="metric" style="display:none;"></div>
-  <div id="imperial" style="display:unset;"></div>
+<div style="width:40%;">
+    <table class="table" style="margin-top:10px;">
+        <!--thead>
+            <tr>
+                <th></th>
+                <th></th>
+            </tr>
+        </thead -->
+        <tbody id="metric" style="display:none;"></tbody>
+        <tbody id="imperial" style=""></tbody>
+    </table>
 </div>
+
+<script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
 
