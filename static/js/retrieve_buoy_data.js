@@ -78,21 +78,32 @@ function ajax_get_buoy_data(station_id) {
 
 function add_data_to_dom(data) {
     value_divs = {
-        "default_div": document.getElementById("default"),
         "metric_div": document.getElementById("metric"),
         "imperial_div": document.getElementById("imperial")
     }
-    value_divs.default_div.innerHTML = "";
     value_divs.metric_div.innerHTML = "";
     value_divs.imperial_div.innerHTML = "";
+
+    let selected_unit = document.getElementById('unit_selector').value;
+
+    let unit;
     for (let key in data.values) {
+
         if (key === "imperial" || key === "metric") {
             for (let subkey in data.values[key]) {
-                value_divs[key + "_div"].innerHTML += "<div>" + subkey + " " + data.values[key][subkey] + " " + data.units[key][subkey] + "</div></br>";
+                unit = data.units[key][subkey];
+                value_divs[key + "_div"].innerHTML += "<tr><td>" + _xform_keys(subkey) + "</td><td>" + data.values[key][subkey] + unit + "</td></tr>";
             }
         }
         else {
-            value_divs.default_div.innerHTML += "<div>" + key + " "  + data.values[key] + " " + data.units[key]  + "</div></br>";
+            
+            unit = data.units[key];
+            if (unit === 'direction') {
+                unit = "";
+            }
+            value_divs.metric_div.innerHTML += "<tr><td>" + _xform_keys(key) + "</td><td>"  + data.values[key] + unit  + "</td></tr>";
+            value_divs.imperial_div.innerHTML += "<tr><td>" + _xform_keys(key) + "</td><td>"  + data.values[key] + unit  + "</td></tr>";
+
         }
     }
 }
@@ -103,17 +114,44 @@ function toggle_units(selectObject) {
     let metric_div = document.getElementById("metric");
     let imperial_div = document.getElementById("imperial");
     if (type === "metric") {
-        metric_div.style = "display:unset;";
+        metric_div.style = "";
         imperial_div.style = "display:none;";       
     }
     else {
         metric_div.style = "display:none;";
-        imperial_div.style = "display:unset;";       
+        imperial_div.style = "";       
 
     }
 }
 
+function _strip_underscores(str) {
+    return str.split('_');
+}
 
+function _capitalize_first_char(str) {
+    let skip = ['degree', 'knots', 'mps', 'kmph', 'miles', 'celsius', 'fahrenheit'];
+
+    if (skip.indexOf(str) > -1) {
+        return str;
+    }
+    else {
+        return str.charAt(0).toUpperCase() + str.slice(1);
+    }
+}
+
+function _xform_keys(key) {
+ 
+    let parts = _strip_underscores(key);
+    let modified_keys = '';
+    for ( let i = 0; i < parts.length; i++) {
+        modified_keys += _capitalize_first_char(parts[i]);
+        if (i < (parts.length - 1)) {
+            modified_keys += ' ';
+        }
+    }
+
+    return modified_keys;  
+}
 
 document.addEventListener("DOMContentLoaded", function(event) { 
     get_buoy_data();
