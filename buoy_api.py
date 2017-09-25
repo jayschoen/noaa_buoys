@@ -43,9 +43,9 @@ def retrieveCurrentReadings(station_id):
         data = {
             "labels": {
                 "air_temp_celsius": "air_temp_celsius",
-                "air_temp_farenheit": "air_temp_farenheit",
+                "air_temp_fahrenheit": "air_temp_fahrenheit",
                 "water_temp_celsius": "water_temp_celsius",
-                "water_temp_farenheit": "water_temp_farenheit",
+                "water_temp_fahrenheit": "water_temp_fahrenheit",
                 "wind_direction": labels[17],
                 "wind_speed": labels[18],
                 "wind_gust": labels[19]
@@ -54,8 +54,8 @@ def retrieveCurrentReadings(station_id):
                 "imperial": {
                     "wind_speed_miles": _metric_to_miles(values[18]),
                     "wind_gust_miles": _metric_to_miles(values[19]),
-                    "air_temp_farenheit": _celsius_to_farenheit(values[1]),
-                    "water_temp_farenheit": _celsius_to_farenheit(values[14]),
+                    "air_temp_fahrenheit": _celsius_to_fahrenheit(values[1]),
+                    "water_temp_fahrenheit": _celsius_to_fahrenheit(values[14]),
                 },
                 "metric": {
                     "wind_speed_mps": values[18],
@@ -74,18 +74,18 @@ def retrieveCurrentReadings(station_id):
                 "imperial": {
                     "wind_speed_miles": "mi/h",
                     "wind_gust_miles": "mi/h",
-                    "air_temp_farenheit": "F",
-                    "water_temp_farenheit": "F",
+                    "air_temp_fahrenheit": "&ordm;F",
+                    "water_temp_fahrenheit": "&ordm;F",
                 },
                 "metric": {
                     "wind_speed_mps": units[18],
                     "wind_speed_kmph": "km/h",
                     "wind_gust_mps": units[19],
                     "wind_gust_kmph": "km/h",
-                    "air_temp_celsius": units[1],
-                    "water_temp_celsius": "C",
+                    "air_temp_celsius": "&ordm;" + units[1],
+                    "water_temp_celsius": "&ordm;C",
                 },
-                "wind_direction_degree": units[17],
+                "wind_direction_degree": "&ordm;",
                 "wind_direction": "direction",
                 "wind_speed_knots": "kn",
                 "wind_gust_knots": "kn"
@@ -119,65 +119,71 @@ def _check_station_id(station_id):
 
 
 
-
-def _celsius_to_farenheit(t):
-    return t * 9/5 + 32
+def _celsius_to_fahrenheit(t):
+    return round(t * 9/5 + 32, 1)
 
 
 
 
 def _mps_to_kmph(m):
-    return m * 3.6
+    return round(m * 3.6, 1)
 
 
 
 
 def _metric_to_knots(m):
-    return m * 1.9438444924574
+    return round(m * 1.9438444924574, 1)
 
 
 
 
 def _metric_to_miles(m):
-    return m * 2.2369
+    return round(m * 2.2369, 1)
 
 
 
 
-def _compass_direction(d):
-    if d >= 348.75 or d <= 11.25:
-        return 'N'
-    elif d >= 11.25 and d <= 33.75:
-        return 'NNE'
-    elif d >= 33.75 and d <= 56.25:
-        return 'NE'
-    elif d >= 56.25 and d <= 78.75:
-        return 'ENE'
-    elif d >= 78.75 and d <= 101.25:
-        return 'E'
-    elif d >= 101.25 and d <= 123.75:
-        return 'ESE'
-    elif d >= 123.75 and d <= 146.25:
-        return 'SE'
-    elif d >= 146.25 and d <= 168.75:
-        return 'SSE'
-    elif d >= 168.75 and d <= 191.25:
-        return 'S'
-    elif d >= 191.25 and d <= 213.75:
-        return 'SSW'
-    elif d >= 213.75 and d <= 236.25:
-        return 'SW'
-    elif d >= 236.25 and d <= 258.75:
-        return 'WSW'
-    elif d >= 258.75 and d <= 281.25:
-        return 'W'
-    elif d >= 281.25 and d <= 303.75:
-        return 'WNW'
-    elif d >= 303.75 and d <= 326.25:
-        return 'NW'
-    elif d >= 326.25 and d <= 348.75:
-        return 'NNW'
+def _compass_direction(degree):
+    val = int( (degree / 22.5) + .5)
+    arr = ["N", "NNE", "NE", "ENE", "E", "ESE", "SE", "SSE", "S", "SSW", "SW", "WSW", "W", "WNW", "NW", "NNW"]
+    return arr[ (val % 16) ]
 
+
+
+
+#def _compass_direction(d):
+#    if d >= 348.75 or d <= 11.25:
+#        return 'N'
+#    elif d >= 11.25 and d <= 33.75:
+#        return 'NNE'
+#    elif d >= 33.75 and d <= 56.25:
+#        return 'NE'
+#    elif d >= 56.25 and d <= 78.75:
+#        return 'ENE'
+#    elif d >= 78.75 and d <= 101.25:
+#        return 'E'
+#    elif d >= 101.25 and d <= 123.75:
+#        return 'ESE'
+#    elif d >= 123.75 and d <= 146.25:
+#        return 'SE'
+#    elif d >= 146.25 and d <= 168.75:
+#        return 'SSE'
+#    elif d >= 168.75 and d <= 191.25:
+#        return 'S'
+#    elif d >= 191.25 and d <= 213.75:
+#        return 'SSW'
+#    elif d >= 213.75 and d <= 236.25:
+#        return 'SW'
+#    elif d >= 236.25 and d <= 258.75:
+#        return 'WSW'
+#    elif d >= 258.75 and d <= 281.25:
+#        return 'W'
+#    elif d >= 281.25 and d <= 303.75:
+#        return 'WNW'
+#    elif d >= 303.75 and d <= 326.25:
+#        return 'NW'
+#    elif d >= 326.25 and d <= 348.75:
+#        return 'NNW'
 
 
 
@@ -192,4 +198,4 @@ def _compass_direction(d):
     #look up min()
     # look up abs()
 # look up lambda
-#    return directionList[min(directionList, key=lambda x:abs(x-degree))]
+#    return directionList[ min( directionList, key=lambda x:abs(x-degree) ) ]
