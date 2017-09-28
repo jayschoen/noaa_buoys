@@ -5,48 +5,112 @@
 
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
 
-<div id="station_status" style="float:left; margin-right:5px;">
+<style>
 
-</div>
+.remove-margin {
+    margin: 0;
+}
+.main-container {
+    margin: 15px;
+    border: 1px solid lightgray;
+    padding: 15px;
+    min-width: 346px;
+    max-width: 346px;
+}
 
-<div>
-  <div style="float:left; margin-right:5px;">
-    <select id="station_selector">
-      <option value="AN">Annapolis</option>
-      <option value="FL">First Landing</option>
-      <option value="GR">Gooses Reef</option>
-      <option value="J">Jamestown</option>
-      <option value="N">Norfolk</option>
-      <option value="PL">Point Lookout</option>
-      <option value="RC">Rice Rivers Center</option>
-      <option value="S">Susquehanna</option>
-      <option value="SN">Patapsco</option>
-      <option value="SR">Stingray Point</option>
-      <option selected="selected" value="UP">Upper Potomac</option>
-    </select>
-  </div>
+.status-indicator {
+    border: 1px solid white;
+    text-align: center;
+    width: 25px;
+}
 
-  <div style="float:left;">
-    <select id="unit_selector" onchange="toggle_units(this);">
-      <option value="metric">metric</option>
-      <option value="imperial" selected="selected">imperial</option>
-    </select>
-  </div>
-</div>
+.station-list-container {
+    width: 110px;
+    border: 1px solid lightgray;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    margin: 15px;
+    min-width: 110px;
+}
 
-<div style="clear:both;"></div>
+.status-indicator2 {
+    border: 1px solid white;
+    text-align: center;
+    width: 25px;
+    background: silver;
+    margin: auto;
+}
 
-<div style="width:40%;">
-    <table class="table" style="margin-top:10px;">
-        <!--thead>
-            <tr>
-                <th></th>
-                <th></th>
-            </tr>
-        </thead -->
-        <tbody id="metric" style="display:none;"></tbody>
-        <tbody id="imperial" style=""></tbody>
-    </table>
+.status-label {
+    text-align: center;
+}
+
+.table-row-margin {
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+</style>
+
+<div class="container remove-margin">
+    <div class="row">
+        <div class="col-auto">
+            <div id="main-outer-wrapper" class="main-container rounded">
+                <div class="row">
+                    <div class="col-1">
+                        <div id="station_status"></div>
+                    </div>
+
+                    <div class="col-6">
+                        <select id="station_selector">
+                            <option value="AN">Annapolis</option>
+                            <option value="FL">First Landing</option>
+                            <option value="GR">Gooses Reef</option>
+                            <option value="J">Jamestown</option>
+                            <option value="N">Norfolk</option>
+                            <option value="PL">Point Lookout</option>
+                            <option value="RC">Rice Rivers Center</option>
+                            <option value="S">Susquehanna</option>
+                            <option value="SN">Patapsco</option>
+                            <option value="SR">Stingray Point</option>
+                            <option selected="selected" value="UP">Upper Potomac</option>
+                        </select>
+                    </div>
+
+                    <div class="col-2">
+                        <select id="unit_selector" onchange="toggle_units(this);">
+                            <option value="metric">metric</option>
+                            <option value="imperial" selected="selected">imperial</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col">
+                        <div id="metric" style="display:none;"></div>
+                        <div id="imperial" style=""></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-auto">
+            <div id="station-list-container" class="station-list-container rounded">
+                <div class="row"><div class="col"><div class="status-label">AN</div></div><div class="col"><div class="status-indicator2 rounded-circle">X</div></div></div>
+                <div class="row"><div class="col"><div class="status-label">FL</div></div><div class="col"><div class="status-indicator2 rounded-circle">X</div></div></div>
+                <div class="row"><div class="col"><div class="status-label">GR</div></div><div class="col"><div class="status-indicator2 rounded-circle">X</div></div></div>
+                <div class="row"><div class="col"><div class="status-label">J</div></div><div class="col"><div class="status-indicator2 rounded-circle">X</div></div></div>
+                <div class="row"><div class="col"><div class="status-label">N</div></div><div class="col"><div class="status-indicator2 rounded-circle">X</div></div></div>
+                <div class="row"><div class="col"><div class="status-label">PL</div></div><div class="col"><div class="status-indicator2 rounded-circle">X</div></div></div>
+                <div class="row"><div class="col"><div class="status-label">RC</div></div><div class="col"><div class="status-indicator2 rounded-circle">X</div></div></div>
+                <div class="row"><div class="col"><div class="status-label">S</div></div><div class="col"><div class="status-indicator2 rounded-circle">X</div></div></div>
+                <div class="row"><div class="col"><div class="status-label">SN</div></div><div class="col"><div class="status-indicator2 rounded-circle">X</div></div></div>
+                <div class="row"><div class="col"><div class="status-label">SR</div></div><div class="col"><div class="status-indicator2 rounded-circle">X</div></div></div>
+                <div class="row"><div class="col"><div class="status-label">UP</div></div><div class="col"><div class="status-indicator2 rounded-circle">X</div></div></div>
+            </div>
+        </div>
+        <div class="col-*"></div>
+    </div>
 </div>
 
 <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
