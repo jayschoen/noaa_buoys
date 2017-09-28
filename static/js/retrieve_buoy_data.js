@@ -21,17 +21,17 @@ function update_station_status_dom(status_obj) {
     
     let status_val = "";
     if (status_obj.result === 0) {
-        status_val = "Online";
+        status_val = "&uarr;";
         status_color = "#42f495";
     }
     else {
-        status_val = "Offline";
+        status_val = "&darr;";
         status_color = "#f4425c";
     }
 
     let selector = document.getElementById("station_status");
 
-    selector.innerHTML = "<div style='background-color:" + status_color + ";'>" + status_val + "</div>"; 
+    selector.innerHTML = "<div class='status-indicator rounded-circle' style='background-color:" + status_color + ";'>" + status_val + "</div>"; 
 
 }
 
@@ -92,7 +92,7 @@ function add_data_to_dom(data) {
         if (key === "imperial" || key === "metric") {
             for (let subkey in data.values[key]) {
                 unit = data.units[key][subkey];
-                value_divs[key + "_div"].innerHTML += "<tr><td>" + _xform_keys(subkey) + "</td><td>" + data.values[key][subkey] + unit + "</td></tr>";
+                value_divs[key + "_div"].innerHTML += "<div class='row table-row-margin'><div class='col-8'>" + _xform_keys(subkey) + "</div><div class='col-4'>" + data.values[key][subkey] + unit + "</div></div>";
             }
         }
         else {
@@ -101,8 +101,8 @@ function add_data_to_dom(data) {
             if (unit === 'direction') {
                 unit = "";
             }
-            value_divs.metric_div.innerHTML += "<tr><td>" + _xform_keys(key) + "</td><td>"  + data.values[key] + unit  + "</td></tr>";
-            value_divs.imperial_div.innerHTML += "<tr><td>" + _xform_keys(key) + "</td><td>"  + data.values[key] + unit  + "</td></tr>";
+            value_divs.metric_div.innerHTML += "<div class='row table-row-margin'><div class='col-8'>" + _xform_keys(key) + "</div><div class='col-4'>"  + data.values[key] + unit  + "</div></div>";
+            value_divs.imperial_div.innerHTML += "<div class='row table-row-margin'><div class='col-8'>" + _xform_keys(key) + "</div><div class='col-4'>"  + data.values[key] + unit  + "</div></div>";
 
         }
     }
