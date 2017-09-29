@@ -10,12 +10,23 @@
 .remove-margin {
     margin: 0;
 }
-.main-container {
-    margin: 15px;
+
+.column-border {
     border: 1px solid lightgray;
+}
+
+.margin-main {
+    margin: 15px;
+}
+
+.margin-station-list {
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+.main-container {
     padding: 15px;
-    min-width: 346px;
-    max-width: 346px;
+    min-width: 360px;
 }
 
 .status-indicator {
@@ -26,9 +37,6 @@
 
 .station-list-container {
     width: 110px;
-    border: 1px solid lightgray;
-    padding-top: 15px;
-    padding-bottom: 15px;
     margin: 15px;
     min-width: 110px;
 }
@@ -46,15 +54,14 @@
 }
 
 .table-row-margin {
-    margin-top: 5px;
-    margin-bottom: 5px;
+    margin-top: 8px;
 }
 
 </style>
 
 <div class="container remove-margin">
     <div class="row">
-        <div class="col-auto">
+        <div class="col-auto column-border margin-main rounded">
             <div id="main-outer-wrapper" class="main-container rounded">
                 <div class="row">
                     <div class="col-1">
@@ -77,7 +84,7 @@
                         </select>
                     </div>
 
-                    <div class="col-2">
+                    <div class="col-5">
                         <select id="unit_selector" onchange="toggle_units(this);">
                             <option value="metric">metric</option>
                             <option value="imperial" selected="selected">imperial</option>
@@ -87,6 +94,7 @@
 
                 <div class="row">
                     <div class="col">
+                        <div id="error"></div>
                         <div id="metric" style="display:none;"></div>
                         <div id="imperial" style=""></div>
                     </div>
@@ -94,20 +102,8 @@
             </div>
         </div>
 
-        <div class="col-auto">
-            <div id="station-list-container" class="station-list-container rounded">
-                <div class="row"><div class="col"><div class="status-label">AN</div></div><div class="col"><div class="status-indicator2 rounded-circle">X</div></div></div>
-                <div class="row"><div class="col"><div class="status-label">FL</div></div><div class="col"><div class="status-indicator2 rounded-circle">X</div></div></div>
-                <div class="row"><div class="col"><div class="status-label">GR</div></div><div class="col"><div class="status-indicator2 rounded-circle">X</div></div></div>
-                <div class="row"><div class="col"><div class="status-label">J</div></div><div class="col"><div class="status-indicator2 rounded-circle">X</div></div></div>
-                <div class="row"><div class="col"><div class="status-label">N</div></div><div class="col"><div class="status-indicator2 rounded-circle">X</div></div></div>
-                <div class="row"><div class="col"><div class="status-label">PL</div></div><div class="col"><div class="status-indicator2 rounded-circle">X</div></div></div>
-                <div class="row"><div class="col"><div class="status-label">RC</div></div><div class="col"><div class="status-indicator2 rounded-circle">X</div></div></div>
-                <div class="row"><div class="col"><div class="status-label">S</div></div><div class="col"><div class="status-indicator2 rounded-circle">X</div></div></div>
-                <div class="row"><div class="col"><div class="status-label">SN</div></div><div class="col"><div class="status-indicator2 rounded-circle">X</div></div></div>
-                <div class="row"><div class="col"><div class="status-label">SR</div></div><div class="col"><div class="status-indicator2 rounded-circle">X</div></div></div>
-                <div class="row"><div class="col"><div class="status-label">UP</div></div><div class="col"><div class="status-indicator2 rounded-circle">X</div></div></div>
-            </div>
+        <div class="col-auto column-border margin-station-list rounded">
+            <div id="station-list-container" class="station-list-container rounded"></div>
         </div>
         <div class="col-*"></div>
     </div>
